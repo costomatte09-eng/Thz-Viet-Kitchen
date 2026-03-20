@@ -644,10 +644,78 @@ tailwind.config = {
 
 
 <!-- ════════════════════ AVIS ════════════════════ -->
-<section id="avis" class="py-24 px-6 bg-charbon">
-  <div class="max-w-5xl mx-auto">
+<section id="avis" class="py-24 bg-charbon overflow-hidden">
 
-    <div class="text-center mb-16 reveal">
+  <!-- CSS Carousel -->
+  <style>
+    /* --- CAROUSEL AVIS --- */
+    #reviews-track {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      transition: transform 0.3s ease;
+    }
+    #reviews-track:hover { animation-play-state: paused; }
+    .review-card {
+      width: 320px;
+      height: 220px;
+      flex-shrink: 0;
+      background: #232320;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.3s ease, height 0.35s cubic-bezier(0.25,1,0.5,1);
+      cursor: default;
+    }
+    .review-card.expanded {
+      height: auto;
+      min-height: 220px;
+    }
+    .review-card:hover {
+      border-color: rgba(192,57,43,0.35);
+    }
+    /* Fade edges */
+    .review-card blockquote {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      flex-shrink: 1;
+      transition: none;
+    }
+    .review-card.expanded blockquote {
+      -webkit-line-clamp: unset;
+      display: block;
+      overflow: visible;
+    }
+    .review-card .read-more-btn {
+      display: none;
+      align-self: flex-start;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #4285F4;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin-top: 4px;
+    }
+    .review-card .read-more-btn:hover { color: #1a6ee8; }
+    .review-card.truncated .read-more-btn { display: block; }
+    /* Touch swipe */
+    #reviews-viewport { cursor: grab; }
+    #reviews-viewport.dragging { cursor: grabbing; animation-play-state: paused; }
+  </style>
+
+  <div class="max-w-5xl mx-auto px-6">
+    <!-- Header -->
+    <div class="text-center mb-12 reveal">
       <p class="text-rouge text-sm font-semibold tracking-widest uppercase mb-3">Ce qu'ils disent</p>
       <h2 class="text-4xl md:text-5xl text-creme mb-5 font-extrabold" style="font-family:'Plus Jakarta Sans',sans-serif; letter-spacing:-0.02em;">Ils ont testé,<br>ils ont adoré</h2>
       <!-- Note globale -->
@@ -655,67 +723,435 @@ tailwind.config = {
         <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
         <span class="text-white font-semibold text-sm" style="font-family:'Plus Jakarta Sans',sans-serif;">4,9</span>
         <span class="text-or text-sm tracking-wider">★★★★★</span>
-        <span class="text-gris text-xs">sur Google</span>
+        <span class="text-gris text-xs">sur Google · 232 avis</span>
       </div>
       <div class="gold-line max-w-xs mx-auto mt-5"></div>
     </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-      <div class="reveal bg-surface rounded-2xl p-7 border border-white/5 flex flex-col hover:border-white/10 transition-all duration-300 hover:shadow-xl hover:-translate-y-1" style="transition-delay:0.05s">
-        <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
-          <div class="stars text-sm">★★★★★</div>
-          <svg viewBox="0 0 24 24" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-        </div>
-        <blockquote class="text-white/80 text-sm leading-relaxed flex-grow italic mb-5">
-          "Le repas vietnamien de qualité qui ne manque pas de quantité ! Accueil et service des plus agréables."
-        </blockquote>
-        <div class="flex items-center gap-3 pt-4 border-t border-white/5">
-          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">S</div>
-          <div>
-            <div class="text-creme text-xs font-semibold">Sophie M.</div>
-            <div class="text-gris text-xs">Avis Google · il y a 2 semaines</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="reveal bg-surface rounded-2xl p-7 border border-rouge/20 ring-1 ring-rouge/10 flex flex-col hover:border-rouge/40 transition-all duration-300 hover:shadow-xl hover:-translate-y-1" style="transition-delay:0.12s">
-        <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
-          <div class="stars text-sm">★★★★★</div>
-          <svg viewBox="0 0 24 24" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-        </div>
-        <blockquote class="text-white/80 text-sm leading-relaxed flex-grow italic mb-5">
-          "Meilleurs et plus copieux Bo-bun que j'ai pu manger ces dernières années. Je recommande, ils sont super sympa."
-        </blockquote>
-        <div class="flex items-center gap-3 pt-4 border-t border-white/5">
-          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">T</div>
-          <div>
-            <div class="text-creme text-xs font-semibold">Thomas R.</div>
-            <div class="text-gris text-xs">Avis Google · il y a 1 mois</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="reveal bg-surface rounded-2xl p-7 border border-white/5 flex flex-col hover:border-white/10 transition-all duration-300 hover:shadow-xl hover:-translate-y-1" style="transition-delay:0.22s">
-        <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
-          <div class="stars text-sm">★★★★★</div>
-          <svg viewBox="0 0 24 24" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-        </div>
-        <blockquote class="text-white/80 text-sm leading-relaxed flex-grow italic mb-5">
-          "Rapport qualité-prix incroyable. Tout est fait maison et avec le sourire."
-        </blockquote>
-        <div class="flex items-center gap-3 pt-4 border-t border-white/5">
-          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-teal-500 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">L</div>
-          <div>
-            <div class="text-creme text-xs font-semibold">Léa D.</div>
-            <div class="text-gris text-xs">Avis Google · il y a 3 semaines</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
   </div>
+
+  <!-- Carousel viewport (full width, no px-6) -->
+  <div class="relative">
+    <div id="reviews-viewport" class="overflow-hidden px-4" style="padding-bottom:4px;">
+      <div id="reviews-track">
+
+        <!-- ─── AVIS 1 ─── -->
+        <div class="review-card">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"Rien à redire, si ce n'est que je reviendrai pour sûr. Un accueil et un service des plus agréables, le tout avec un repas vietnamien de qualité et qui ne manque pas de quantité !!! Les propriétaires sont adorables et font d'office des doggy bag, c'est pour dire !"</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#667eea,#764ba2);">L</div>
+            <div><div class="text-creme text-xs font-semibold">L A.</div><div class="text-gris text-xs">Décembre 2025</div></div>
+          </div>
+        </div>
+
+        <!-- ─── AVIS 2 ─── -->
+        <div class="review-card" style="border-color:rgba(192,57,43,0.2);">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"Rapport qualité prix incroyable. Tout est fait maison et avec le sourire. Le prix d'un plat peut impressionner surtout pour les étudiants mais au final, on repart avec son doggy bag tellement la part est copieuse (sacrément copieuse), donc 2 repas pour le prix d'un : inégalable."</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#f093fb,#f5576c);">G</div>
+            <div><div class="text-creme text-xs font-semibold">Guillemette L.</div><div class="text-gris text-xs">Mars 2026</div></div>
+          </div>
+        </div>
+
+        <!-- ─── AVIS 3 ─── -->
+        <div class="review-card">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"Mon amie et moi sommes allées manger à The Viet Kitchen. Je recommande ce restaurant autant pour l'accueil chaleureux de la dame et ses conseils pour choisir nos plats, que pour les plats eux-mêmes, qui étaient très bons et copieux."</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#4facfe,#00f2fe);">A</div>
+            <div><div class="text-creme text-xs font-semibold">Alyssia M.</div><div class="text-gris text-xs">Février 2026</div></div>
+          </div>
+        </div>
+
+        <!-- ─── AVIS 4 ─── -->
+        <div class="review-card" style="border-color:rgba(192,57,43,0.2);">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"J'adore ! Le service est généreux comme j'ai jamais vu ! Le p'tit couple qui tient la restau est adorable. Je recommande vivement ! 💕🤩"</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#fa709a,#fee140);">A</div>
+            <div><div class="text-creme text-xs font-semibold">Angélique L.</div><div class="text-gris text-xs">Mars 2026</div></div>
+          </div>
+        </div>
+
+        <!-- ─── AVIS 5 ─── -->
+        <div class="review-card">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"Simple, bon et copieux. Nous avons commandé un bo bun nem &amp; boeuf, un mix entrée de 6 pièces et un bánh bao au nutella. Le tout super bon et bien copieux. Nems et raviolis fournis (et non juste un goût de vermicelles et carottes comme dans beaucoup de restos)"</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#43e97b,#38f9d7);">N</div>
+            <div><div class="text-creme text-xs font-semibold">Nga L.</div><div class="text-gris text-xs">Avril 2025</div></div>
+          </div>
+        </div>
+
+        <!-- ─── AVIS 6 ─── -->
+        <div class="review-card" style="border-color:rgba(192,57,43,0.2);">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"Très bonne adresse, accueil convivial, repas de qualité et très généreux ! J'avais envie d'un Bo bun depuis plusieurs semaines, j'en ai mangé un qui aurait pu me faire trois repas !"</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#f7971e,#ffd200);">A</div>
+            <div><div class="text-creme text-xs font-semibold">Antoine D.</div><div class="text-gris text-xs">Juin 2025</div></div>
+          </div>
+        </div>
+
+        <!-- ─── AVIS 7 ─── -->
+        <div class="review-card">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"Sans exagérer les meilleurs et les plus copieux Bo-bun que j'ai pu manger ces dernières années (et c'est pas faute d'en avoir testés...). Et même avis pour les autres plats à la carte (porc caramel samoussa etc...). Je recommande (et en plus ils sont super sympa)."</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb);">P</div>
+            <div><div class="text-creme text-xs font-semibold">Pj Dub</div><div class="text-gris text-xs">Décembre 2025</div></div>
+          </div>
+        </div>
+
+        <!-- ─── AVIS 8 ─── -->
+        <div class="review-card" style="border-color:rgba(192,57,43,0.2);">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"Super resto, plat très copieux. Présentation soignée et un délice pour les papilles. Prix très abordables. Superbe découverte on reviendra souvent."</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#30cfd0,#330867);">O</div>
+            <div><div class="text-creme text-xs font-semibold">Océane T.</div><div class="text-gris text-xs">Mai 2025</div></div>
+          </div>
+        </div>
+
+        <!-- ─── AVIS 9 ─── -->
+        <div class="review-card">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"Excellents plats servis en grande quantité, avec un personnel très sympathique."</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#f953c6,#b91d73);">M</div>
+            <div><div class="text-creme text-xs font-semibold">Mathieu</div><div class="text-gris text-xs">Septembre 2025</div></div>
+          </div>
+        </div>
+
+        <!-- ─── AVIS 10 ─── -->
+        <div class="review-card" style="border-color:rgba(192,57,43,0.2);">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"Très bon petit restaurant, avec des personnes très sympa ! Ayant pris un plat sans précisé que j'étais végétarien, la personne qui nous servait a tout de même pensé à prévenir que la sauce contenait du poisson, ce qui m'a permis de changer de sauce, merci à elle !"</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#56ab2f,#a8e063);">A</div>
+            <div><div class="text-creme text-xs font-semibold">Alexis</div><div class="text-gris text-xs">Janvier 2026</div></div>
+          </div>
+        </div>
+
+        <!-- ─── AVIS 11 ─── -->
+        <div class="review-card">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"Ce petit restaurant est une vraie perle. Les patrons sont adorables. La cuisine est excellente, très bien préparée, beaucoup de saveurs, bien parfumée. Les plats servis sont gargantuesques, c'est la première fois que je repars avec un doggy bag. Ravis de cette trouvaille."</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#ee0979,#ff6a00);">C</div>
+            <div><div class="text-creme text-xs font-semibold">Cecile FF</div><div class="text-gris text-xs">Avril 2024</div></div>
+          </div>
+        </div>
+
+        <!-- ─── AVIS 12 ─── -->
+        <div class="review-card" style="border-color:rgba(192,57,43,0.2);">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"Super bon et très copieux. Une excellente découverte ! J'y retournerai sans hésiter et je recommande à 100 %. Merci pour cette belle expérience."</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#6a11cb,#2575fc);">C</div>
+            <div><div class="text-creme text-xs font-semibold">Camille I.</div><div class="text-gris text-xs">Novembre 2025</div></div>
+          </div>
+        </div>
+
+        <!-- ─── AVIS 13 ─── -->
+        <div class="review-card">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"Je n'écris jamais d'avis mais là ! C'était nécessaire, allez-y les yeux fermés ! Trop bon, nous nous sommes régalés tous les 5 : produits frais, légumes savoureux, viande onctueuse, des quantités énormes et un petit prix même un samedi soir. Pour finir, un accueil adorable, on a hâte de revenir !"</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#f77062,#fe5196);">S</div>
+            <div><div class="text-creme text-xs font-semibold">Stéphanie A.</div><div class="text-gris text-xs">Septembre 2025</div></div>
+          </div>
+        </div>
+
+        <!-- ─── AVIS 14 ─── -->
+        <div class="review-card" style="border-color:rgba(192,57,43,0.2);">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"Arrivé par hasard dans cet établissement. Super surprise ! Très bon plat, super copieux ! Je cherchais un resto pour dans 15j avec les collègues, je crois que j'ai trouvé !"</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#1d976c,#93f9b9);">J</div>
+            <div><div class="text-creme text-xs font-semibold">Joel P.</div><div class="text-gris text-xs">Septembre 2025</div></div>
+          </div>
+        </div>
+
+        <!-- ─── AVIS 15 ─── -->
+        <div class="review-card">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"Toujours au top ! Ingrédients de qualité et quantité de l'assiette très généreuse ! On y mange régulièrement 🙂 Le personnel est très gentil en plus. Je recommande !"</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#c471ed,#12c2e9);">N</div>
+            <div><div class="text-creme text-xs font-semibold">Nacht E.</div><div class="text-gris text-xs">Novembre 2025</div></div>
+          </div>
+        </div>
+
+        <!-- ─── AVIS 16 ─── -->
+        <div class="review-card" style="border-color:rgba(192,57,43,0.2);">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"La cuisine vaut largement l'attente lors de la commande. Les plats sont copieux, délicieux, généreux, et l'accueil est aussi au top. Je recommande absolument."</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#f7971e,#ffd200);">M</div>
+            <div><div class="text-creme text-xs font-semibold">Marion Lap.</div><div class="text-gris text-xs">Octobre 2025</div></div>
+          </div>
+        </div>
+
+        <!-- ─── AVIS 17 ─── -->
+        <div class="review-card">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"Super adresse à Toulouse ! Les quantités sont généreuses, les nouilles sont succulentes et l'équipe est adorable !"</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#e96c6c,#f7a07a);">M</div>
+            <div><div class="text-creme text-xs font-semibold">Marion Mor.</div><div class="text-gris text-xs">Janvier 2026</div></div>
+          </div>
+        </div>
+
+        <!-- ─── AVIS 18 ─── -->
+        <div class="review-card" style="border-color:rgba(192,57,43,0.2);">
+          <div class="flex items-center justify-between">
+            <span class="text-or text-base tracking-wider">★★★★★</span>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </div>
+          <blockquote class="text-white/80 text-sm leading-relaxed italic flex-grow">"Raviolis au porc excellents avec une farce maison super bien parfumée, bo bun copieux et très bon, cuisine et service au top, on s'est régalé, merci 👌🏻👍🏻🙏🏻"</blockquote>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/6">
+            <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#11998e,#38ef7d);">A</div>
+            <div><div class="text-creme text-xs font-semibold">Aurélie C.</div><div class="text-gris text-xs">Décembre 2025</div></div>
+          </div>
+        </div>
+
+        <!-- ─── CLONE (boucle infinie = copie des 18 cartes) ─── -->
+        <!-- Les 18 cartes ci-dessous sont une copie identique pour le loop CSS -->
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"Rien à redire, si ce n'est que je reviendrai pour sûr. Un accueil et un service des plus agréables, le tout avec un repas vietnamien de qualité et qui ne manque pas de quantité !!!"</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#667eea,#764ba2);">L</div><div><div class="text-creme text-xs font-semibold">L A.</div><div class="text-gris text-xs">Décembre 2025</div></div></div></div>
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"Rapport qualité prix incroyable. Tout est fait maison et avec le sourire. 2 repas pour le prix d'un : inégalable."</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#f093fb,#f5576c);">G</div><div><div class="text-creme text-xs font-semibold">Guillemette L.</div><div class="text-gris text-xs">Mars 2026</div></div></div></div>
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"Je recommande ce restaurant autant pour l'accueil chaleureux que pour les plats eux-mêmes, qui étaient très bons et copieux."</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#4facfe,#00f2fe);">A</div><div><div class="text-creme text-xs font-semibold">Alyssia M.</div><div class="text-gris text-xs">Février 2026</div></div></div></div>
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"J'adore ! Le service est généreux comme j'ai jamais vu ! Le p'tit couple qui tient la restau est adorable. Je recommande vivement ! 💕"</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#fa709a,#fee140);">A</div><div><div class="text-creme text-xs font-semibold">Angélique L.</div><div class="text-gris text-xs">Mars 2026</div></div></div></div>
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"Simple, bon et copieux. Nems et raviolis fournis (et non juste un goût de vermicelles et carottes comme dans beaucoup de restos)"</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#43e97b,#38f9d7);">N</div><div><div class="text-creme text-xs font-semibold">Nga L.</div><div class="text-gris text-xs">Avril 2025</div></div></div></div>
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"Très bonne adresse, accueil convivial, j'en ai mangé un Bo bun qui aurait pu me faire trois repas !"</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#f7971e,#ffd200);">A</div><div><div class="text-creme text-xs font-semibold">Antoine D.</div><div class="text-gris text-xs">Juin 2025</div></div></div></div>
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"Les meilleurs et les plus copieux Bo-bun que j'ai pu manger ces dernières années. Je recommande (et en plus ils sont super sympa)."</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb);">P</div><div><div class="text-creme text-xs font-semibold">Pj Dub</div><div class="text-gris text-xs">Décembre 2025</div></div></div></div>
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"Super resto, plat très copieux. Présentation soignée et un délice pour les papilles. Prix très abordables."</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#30cfd0,#330867);">O</div><div><div class="text-creme text-xs font-semibold">Océane T.</div><div class="text-gris text-xs">Mai 2025</div></div></div></div>
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"Excellents plats servis en grande quantité, avec un personnel très sympathique."</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#f953c6,#b91d73);">M</div><div><div class="text-creme text-xs font-semibold">Mathieu</div><div class="text-gris text-xs">Septembre 2025</div></div></div></div>
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"Très bon petit restaurant, la personne qui nous servait a pensé à prévenir que la sauce contenait du poisson — merci à elle !"</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#56ab2f,#a8e063);">A</div><div><div class="text-creme text-xs font-semibold">Alexis</div><div class="text-gris text-xs">Janvier 2026</div></div></div></div>
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"Ce petit restaurant est une vraie perle. Les plats servis sont gargantuesques, c'est la première fois que je repars avec un doggy bag. Ravis de cette trouvaille."</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#ee0979,#ff6a00);">C</div><div><div class="text-creme text-xs font-semibold">Cecile FF</div><div class="text-gris text-xs">Avril 2024</div></div></div></div>
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"Super bon et très copieux. Une excellente découverte ! J'y retournerai sans hésiter et je recommande à 100 %."</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#6a11cb,#2575fc);">C</div><div><div class="text-creme text-xs font-semibold">Camille I.</div><div class="text-gris text-xs">Novembre 2025</div></div></div></div>
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"Allez-y les yeux fermés ! Trop bon, produits frais, légumes savoureux, des quantités énormes et un petit prix même un samedi soir."</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#f77062,#fe5196);">S</div><div><div class="text-creme text-xs font-semibold">Stéphanie A.</div><div class="text-gris text-xs">Septembre 2025</div></div></div></div>
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"Arrivé par hasard dans cet établissement. Super surprise ! Très bon plat, super copieux !"</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#1d976c,#93f9b9);">J</div><div><div class="text-creme text-xs font-semibold">Joel P.</div><div class="text-gris text-xs">Septembre 2025</div></div></div></div>
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"Toujours au top ! Ingrédients de qualité et quantité de l'assiette très généreuse ! On y mange régulièrement 🙂"</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#c471ed,#12c2e9);">N</div><div><div class="text-creme text-xs font-semibold">Nacht E.</div><div class="text-gris text-xs">Novembre 2025</div></div></div></div>
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"La cuisine vaut largement l'attente. Les plats sont copieux, délicieux, généreux, et l'accueil est aussi au top."</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#f7971e,#ffd200);">M</div><div><div class="text-creme text-xs font-semibold">Marion Lap.</div><div class="text-gris text-xs">Octobre 2025</div></div></div></div>
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"Super adresse à Toulouse ! Les quantités sont généreuses, les nouilles sont succulentes et l'équipe est adorable !"</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#e96c6c,#f7a07a);">M</div><div><div class="text-creme text-xs font-semibold">Marion Mor.</div><div class="text-gris text-xs">Janvier 2026</div></div></div></div>
+        <div class="review-card"><div class="flex items-center justify-between"><span class="text-or text-base tracking-wider">★★★★★</span><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div><blockquote class="text-white/80 text-sm italic">"Raviolis au porc excellents avec une farce maison super bien parfumée, bo bun copieux et très bon. On s'est régalé, merci 👌🏻"</blockquote><div class="flex items-center gap-3 pt-3 border-t border-white/6"><div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold" style="background:linear-gradient(135deg,#11998e,#38ef7d);">A</div><div><div class="text-creme text-xs font-semibold">Aurélie C.</div><div class="text-gris text-xs">Décembre 2025</div></div></div></div>
+
+      </div><!-- fin #reviews-track -->
+    </div><!-- fin #reviews-viewport -->
+  </div><!-- fin .relative -->
+
+  <!-- Flèches de navigation -->
+  <div class="flex justify-center gap-3 mt-8 px-6">
+    <button id="reviews-prev" aria-label="Précédent"
+      class="w-10 h-10 rounded-full border border-white/10 bg-surface flex items-center justify-center text-white/60 hover:text-white hover:border-rouge/50 hover:bg-rouge/10 transition-all duration-200 active:scale-90">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button id="reviews-next" aria-label="Suivant"
+      class="w-10 h-10 rounded-full border border-white/10 bg-surface flex items-center justify-center text-white/60 hover:text-white hover:border-rouge/50 hover:bg-rouge/10 transition-all duration-200 active:scale-90">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+  <script>
+  (function() {
+    const track = document.getElementById('reviews-track');
+    const vp    = document.getElementById('reviews-viewport');
+    if (!track || !vp) return;
+
+    const CARD_W = 320 + 20; // card width + gap
+    const TOTAL  = 18;       // real cards (half the track)
+    const HALF_W = CARD_W * TOTAL;
+
+    let offset   = 0;
+    let startX   = 0;
+    let startOff = 0;
+    let active   = false;
+    let animating = false;
+
+    // ─── Apply position ──────────────────────────────
+    function applyOffset(anim) {
+      if (anim) {
+        animating = true;
+        track.style.transition = 'transform 0.38s cubic-bezier(0.25,1,0.5,1)';
+        track.addEventListener('transitionend', function onEnd() {
+          track.removeEventListener('transitionend', onEnd);
+          animating = false;
+          silentNormalize();
+          collapseHiddenCards();
+        });
+      } else {
+        track.style.transition = 'none';
+      }
+      track.style.transform = `translateX(${offset}px)`;
+    }
+
+    // ─── Infinite loop teleport (no animation) ───────
+    function silentNormalize() {
+      if (offset <= -HALF_W) {
+        offset += HALF_W;
+        track.style.transition = 'none';
+        track.style.transform = `translateX(${offset}px)`;
+      } else if (offset > 0) {
+        offset -= HALF_W;
+        track.style.transition = 'none';
+        track.style.transform = `translateX(${offset}px)`;
+      }
+    }
+
+    // ─── Collapse expanded cards that left the view ──
+    function collapseHiddenCards() {
+      const vpRect = vp.getBoundingClientRect();
+      track.querySelectorAll('.review-card.expanded').forEach(card => {
+        const r = card.getBoundingClientRect();
+        if (r.right < vpRect.left || r.left > vpRect.right) {
+          card.classList.remove('expanded');
+          card.classList.add('truncated');
+          const btn = card.querySelector('.read-more-btn');
+          if (btn) btn.textContent = 'Afficher plus ↓';
+        }
+      });
+    }
+
+    // ─── Mouse drag ──────────────────────────────────
+    vp.addEventListener('mousedown', e => {
+      if (animating) return;
+      active   = true;
+      startX   = e.clientX;
+      startOff = offset;
+      vp.style.cursor = 'grabbing';
+      track.style.transition = 'none';
+      e.preventDefault();
+    });
+    window.addEventListener('mousemove', e => {
+      if (!active) return;
+      offset = startOff + (e.clientX - startX);
+      track.style.transform = `translateX(${offset}px)`;
+    });
+    window.addEventListener('mouseup', () => {
+      if (!active) return;
+      active = false;
+      vp.style.cursor = 'grab';
+      offset = Math.round(offset / CARD_W) * CARD_W;
+      applyOffset(true);
+    });
+
+    // ─── Touch swipe ─────────────────────────────────
+    vp.addEventListener('touchstart', e => {
+      if (animating) return;
+      active   = true;
+      startX   = e.touches[0].clientX;
+      startOff = offset;
+      track.style.transition = 'none';
+    }, { passive: true });
+    vp.addEventListener('touchmove', e => {
+      if (!active) return;
+      offset = startOff + (e.touches[0].clientX - startX);
+      track.style.transform = `translateX(${offset}px)`;
+    }, { passive: true });
+    vp.addEventListener('touchend', () => {
+      if (!active) return;
+      active = false;
+      offset = Math.round(offset / CARD_W) * CARD_W;
+      applyOffset(true);
+    });
+
+    // ─── Arrows ──────────────────────────────────────
+    document.getElementById('reviews-prev').addEventListener('click', () => {
+      if (animating) return;
+      offset += CARD_W;
+      applyOffset(true);
+    });
+    document.getElementById('reviews-next').addEventListener('click', () => {
+      if (animating) return;
+      offset -= CARD_W;
+      applyOffset(true);
+    });
+
+    // ─── "Afficher plus" buttons ─────────────────────
+    document.querySelectorAll('.review-card').forEach(card => {
+      const quote  = card.querySelector('blockquote');
+      const author = card.querySelector('.flex.items-center.gap-3');
+      if (!quote || !author) return;
+
+      const btn = document.createElement('button');
+      btn.className = 'read-more-btn';
+      btn.textContent = 'Afficher plus ↓';
+      author.before(btn);
+
+      requestAnimationFrame(() => {
+        if (quote.scrollHeight > quote.clientHeight + 2) {
+          card.classList.add('truncated');
+        }
+      });
+
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const isExpanded = card.classList.toggle('expanded');
+        btn.textContent = isExpanded ? 'Réduire ↑' : 'Afficher plus ↓';
+        if (!isExpanded) card.classList.add('truncated');
+      });
+    });
+
+    // ─── Init ────────────────────────────────────────
+    applyOffset(false);
+  })();
+  </script>
+
 </section>
+
+
 
 
 <!-- ════════════════════ CARTE & COMMANDER ════════════════════ -->
