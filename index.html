@@ -654,11 +654,12 @@ tailwind.config = {
       gap: 20px;
       width: max-content;
       transition: transform 0.3s ease;
+      align-items: flex-start;
     }
     #reviews-track:hover { animation-play-state: paused; }
     .review-card {
       width: 320px;
-      height: 220px;
+      min-height: 220px;
       flex-shrink: 0;
       background: #232320;
       border: 1px solid rgba(255,255,255,0.06);
@@ -667,12 +668,9 @@ tailwind.config = {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: border-color 0.3s ease, height 0.35s cubic-bezier(0.25,1,0.5,1);
+      transition: border-color 0.3s ease;
       cursor: default;
-    }
-    .review-card.expanded {
-      height: auto;
-      min-height: 220px;
+      box-sizing: border-box;
     }
     .review-card:hover {
       border-color: rgba(192,57,43,0.35);
@@ -710,7 +708,7 @@ tailwind.config = {
     .review-card.truncated .read-more-btn { display: block; }
     /* Touch swipe */
     #reviews-viewport { cursor: grab; }
-    #reviews-viewport.dragging { cursor: grabbing; animation-play-state: paused; }
+    #reviews-viewport.dragging { cursor: grabbing; }
   </style>
 
   <div class="max-w-5xl mx-auto px-6">
@@ -994,7 +992,7 @@ tailwind.config = {
   </div><!-- fin .relative -->
 
   <!-- Flèches de navigation -->
-  <div class="flex justify-center gap-3 mt-8 px-6">
+  <div id="reviews-arrows" class="flex justify-center gap-3 mt-8 px-6" style="transition: margin-top 0.35s ease;">
     <button id="reviews-prev" aria-label="Précédent"
       class="w-10 h-10 rounded-full border border-white/10 bg-surface flex items-center justify-center text-white/60 hover:text-white hover:border-rouge/50 hover:bg-rouge/10 transition-all duration-200 active:scale-90">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1062,6 +1060,7 @@ tailwind.config = {
           if (btn) btn.textContent = 'Afficher plus ↓';
         }
       });
+      adjustArrows();
     }
 
     // ─── Mouse drag ──────────────────────────────────
@@ -1119,6 +1118,19 @@ tailwind.config = {
       applyOffset(true);
     });
 
+    // ─── Adjust arrows position based on tallest visible card ─
+    function adjustArrows() {
+      const arrows = document.getElementById('reviews-arrows');
+      if (!arrows) return;
+      const expanded = track.querySelector('.review-card.expanded');
+      if (expanded) {
+        const extra = expanded.getBoundingClientRect().height - 220;
+        arrows.style.marginTop = (32 + Math.max(0, extra)) + 'px';
+      } else {
+        arrows.style.marginTop = '32px';
+      }
+    }
+
     // ─── "Afficher plus" buttons ─────────────────────
     document.querySelectorAll('.review-card').forEach(card => {
       const quote  = card.querySelector('blockquote');
@@ -1141,6 +1153,7 @@ tailwind.config = {
         const isExpanded = card.classList.toggle('expanded');
         btn.textContent = isExpanded ? 'Réduire ↑' : 'Afficher plus ↓';
         if (!isExpanded) card.classList.add('truncated');
+        requestAnimationFrame(adjustArrows);
       });
     });
 
@@ -1150,6 +1163,7 @@ tailwind.config = {
   </script>
 
 </section>
+
 
 
 
