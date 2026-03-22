@@ -3,7 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Viet Kitchen – Toulouse</title>
+<title>The Viet Kitchen – Restaurant Vietnamien à Toulouse | Bo Bun & Cuisine Faite Maison</title>
+<meta name="description" content="Restaurant vietnamien à Toulouse, route de Narbonne. Bo Bun, nems, nouilles sautées, tout fait maison. Note 4,9★ sur Google. Commandez au 09 81 11 27 23.">
+<meta name="keywords" content="restaurant vietnamien Toulouse, bo bun Toulouse, cuisine vietnamienne Toulouse, restaurant fait maison Toulouse, nems Toulouse, route de Narbonne restaurant">
+<meta name="robots" content="index, follow">
+<meta name="author" content="The Viet Kitchen">
+<link rel="canonical" href="https://thevietkitchen-toulouse.fr/">
+
+<!-- Open Graph (Instagram, Facebook, WhatsApp) -->
+<meta property="og:title" content="The Viet Kitchen – Restaurant Vietnamien à Toulouse">
+<meta property="og:description" content="Cuisine vietnamienne authentique et généreuse, faite maison. Bo Bun, nems, nouilles sautées. 4,9★ sur Google · 81 Route de Narbonne, Toulouse.">
+<meta property="og:type" content="restaurant">
+<meta property="og:locale" content="fr_FR">
+
+<!-- Schema.org LocalBusiness -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "The Viet Kitchen",
+  "description": "Restaurant de cuisine vietnamienne authentique à Toulouse. Spécialités : bo bun, nems, nouilles sautées, porc caramel. Tout fait maison.",
+  "url": "https://thevietkitchen-toulouse.fr",
+  "telephone": "+33981112723",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "81 Route de Narbonne",
+    "addressLocality": "Toulouse",
+    "postalCode": "31400",
+    "addressCountry": "FR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 43.5774,
+    "longitude": 1.4553
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "232",
+    "bestRating": "5"
+  },
+  "servesCuisine": "Vietnamienne",
+  "priceRange": "€€",
+  "hasMenu": "https://thevietkitchen-toulouse.fr/#menu",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+    }
+  ],
+  "paymentAccepted": "Cash, Credit Card",
+  "currenciesAccepted": "EUR",
+  "amenityFeature": [
+    { "@type": "LocationFeatureSpecification", "name": "Vente à emporter", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Livraison", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Sur place", "value": true }
+  ]
+}
+</script>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -206,12 +263,12 @@ tailwind.config = {
       <span class="inline-block badge-rouge">Toulouse · 81 rte de Narbonne</span>
     </div>
     <h1 class="hero-title-anim font-display text-4xl md:text-6xl lg:text-7xl leading-tight text-white mb-6" style="text-shadow: 0 2px 40px rgba(0,0,0,0.9), 0 0 80px rgba(0,0,0,0.6), 0 4px 8px rgba(0,0,0,0.8);">
-      L'authenticité<br>
-      <span style="color:#e74c3c; text-shadow: 0 2px 30px rgba(231,76,60,0.5), 0 4px 8px rgba(0,0,0,0.8);">vietnamienne</span><br>
+      Restaurant vietnamien<br>
+      <span style="color:#e74c3c; text-shadow: 0 2px 30px rgba(231,76,60,0.5), 0 4px 8px rgba(0,0,0,0.8);">authentique</span><br>
       à Toulouse
     </h1>
     <p class="hero-sub-anim text-white/80 text-lg md:text-xl font-light max-w-2xl mx-auto mb-10 leading-relaxed" style="text-shadow: 0 2px 12px rgba(0,0,0,0.9);">
-      Des plats faits maison, une générosité sans limite<br class="hidden md:block"> et un accueil avec le sourire.
+      Cuisine vietnamienne faite maison, généreuse et savoureuse —<br class="hidden md:block"> bo bun, nems, nouilles sautées et bien plus.
     </p>
     <div class="hero-btn-anim flex flex-col sm:flex-row gap-4 justify-center">
       <a href="#menu" class="px-8 py-4 bg-rouge text-white font-semibold text-sm tracking-widest uppercase rounded hover:bg-rouge2 transition-all hover:scale-105 active:scale-95" style="box-shadow: 0 4px 20px rgba(192,57,43,0.5);">
@@ -274,7 +331,7 @@ tailwind.config = {
     <!-- Header -->
     <div class="text-center mb-16 reveal">
       <p class="text-rouge text-sm font-semibold tracking-widest uppercase mb-3">Notre Carte</p>
-      <h2 class="text-4xl md:text-5xl text-creme mb-4 font-extrabold" style="font-family:'Plus Jakarta Sans',sans-serif; letter-spacing:-0.02em;">Des saveurs qui<br>racontent une histoire</h2>
+      <h2 class="text-4xl md:text-5xl text-creme mb-4 font-extrabold" style="font-family:'Plus Jakarta Sans',sans-serif; letter-spacing:-0.02em;">Notre carte de cuisine<br>vietnamienne à Toulouse</h2>
       <div class="gold-line max-w-xs mx-auto mt-6"></div>
     </div>
 
@@ -477,7 +534,7 @@ tailwind.config = {
     </div>
 
 
-     <!-- └── ONGLET 3 : PLATS & NOUILLES ──────────────────────────────────────┘ -->
+    <!-- └── ONGLET 3 : PLATS & NOUILLES ──────────────────────────────────────┘ -->
     <!-- Tab: PLATS & NOUILLES -->
     <div id="content-plats" class="tab-content hidden reveal">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -547,6 +604,7 @@ tailwind.config = {
   </div>
 </section>
 
+
 <!-- ════════════════════ DIVIDER ════════════════════ -->
 <div class="gold-line"></div>
 
@@ -557,8 +615,8 @@ tailwind.config = {
 
     <div class="text-center mb-16 reveal">
       <p class="text-rouge text-sm font-semibold tracking-widest uppercase mb-3">Bon Plans</p>
-      <h2 class="text-4xl md:text-5xl text-creme mb-4 font-extrabold" style="font-family:'Plus Jakarta Sans',sans-serif; letter-spacing:-0.02em;">Nos Formules</h2>
-      <p class="text-gris max-w-xl mx-auto">Parce que bien manger ne devrait pas coûter cher.</p>
+      <h2 class="text-4xl md:text-5xl text-creme mb-4 font-extrabold" style="font-family:'Plus Jakarta Sans',sans-serif; letter-spacing:-0.02em;">Formules repas<br>à Toulouse</h2>
+      <p class="text-gris max-w-xl mx-auto">Parce que bien manger ne devrait pas coûter cher — midi ou soir.</p>
       <div class="gold-line max-w-xs mx-auto mt-6"></div>
     </div>
 
@@ -715,7 +773,7 @@ tailwind.config = {
     <!-- Header -->
     <div class="text-center mb-12 reveal">
       <p class="text-rouge text-sm font-semibold tracking-widest uppercase mb-3">Ce qu'ils disent</p>
-      <h2 class="text-4xl md:text-5xl text-creme mb-5 font-extrabold" style="font-family:'Plus Jakarta Sans',sans-serif; letter-spacing:-0.02em;">Ils ont testé,<br>ils ont adoré</h2>
+      <h2 class="text-4xl md:text-5xl text-creme mb-5 font-extrabold" style="font-family:'Plus Jakarta Sans',sans-serif; letter-spacing:-0.02em;">Avis clients sur<br>The Viet Kitchen Toulouse</h2>
       <!-- Note globale -->
       <div class="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-surface border border-white/8 mb-2">
         <svg viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
@@ -1165,17 +1223,14 @@ tailwind.config = {
 </section>
 
 
-
-
-
 <!-- ════════════════════ CARTE & COMMANDER ════════════════════ -->
 <section id="contact" class="bg-noir py-20 px-6">
   <div class="max-w-5xl mx-auto">
 
     <!-- CTA Commander visible -->
     <div class="reveal text-center mb-16">
-      <p class="text-rouge text-sm font-semibold tracking-widest uppercase mb-4">Envie d'un repas ?</p>
-      <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6" style="font-family:'Plus Jakarta Sans',sans-serif;">Commandez maintenant</h2>
+      <p class="text-rouge text-sm font-semibold tracking-widest uppercase mb-4">Commander au restaurant</p>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6" style="font-family:'Plus Jakarta Sans',sans-serif;">Commandez votre repas<br>vietnamien à Toulouse</h2>
       <a href="tel:0981112723" class="inline-flex items-center gap-3 px-10 py-5 bg-rouge text-white font-bold text-xl rounded-xl hover:bg-rouge2 transition-all hover:scale-105 active:scale-95 group" style="box-shadow: 0 8px 32px rgba(192,57,43,0.45);">
         <svg class="w-6 h-6 group-hover:animate-bounce" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
         09 81 11 27 23
@@ -1216,7 +1271,7 @@ tailwind.config = {
               </div>
               <div>
                 <div class="text-creme text-sm font-medium">81 Route de Narbonne</div>
-                <div class="text-gris text-xs">31400 Toulouse · À deux pas de l'université Paul Sabatier</div>
+                <div class="text-gris text-xs">31400 Toulouse · À deux pas de l'université Paul Sabatier · Restaurant vietnamien</div>
               </div>
             </li>
             <li class="flex items-center gap-4">
