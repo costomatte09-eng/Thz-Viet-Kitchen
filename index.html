@@ -70,7 +70,7 @@
 <!-- Préchargement de l'image LCP (hero) en WebP prioritaire -->
 <link rel="preload" as="image" href="img/hero.webp" fetchpriority="high" type="image/webp">
 <!-- Préchargement du logo (above-the-fold) -->
-<link rel="preload" as="image" href="img/logo.webp" type="image/webp">
+<link rel="preload" as="image" href="img/logo.png" type="image/png">
 
 <!-- Google Fonts : display=swap déjà présent, on ajoute preload de la feuille CSS -->
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -183,7 +183,7 @@ tailwind.config = {
 <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-3 px-6">
   <div class="max-w-6xl mx-auto flex items-center justify-between h-14">
     <a href="#hero" class="flex items-center gap-3 group">
-      <img src="img/logo.webp" alt="The Viet Kitchen" width="36" height="58" class="h-9 w-auto object-contain transition-opacity flex-shrink-0" style="filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));" decoding="async">
+      <img src="img/logo.png" alt="The Viet Kitchen" width="36" height="58" class="h-9 w-auto object-contain transition-opacity flex-shrink-0" style="filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));" decoding="async">
       <div class="flex flex-col leading-tight">
         <span class="text-white font-bold text-sm tracking-wide" style="font-family:'Plus Jakarta Sans',sans-serif;">The Viet</span>
         <span class="text-white/70 font-medium text-xs tracking-widest uppercase" style="font-family:'Plus Jakarta Sans',sans-serif;">Kitchen</span>
@@ -219,7 +219,7 @@ tailwind.config = {
   <div class="absolute top-0 left-0 right-0 h-0.5 bg-rouge z-10"></div>
   <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
     <div class="hero-logo-anim mb-6 flex justify-center">
-      <img id="heroLogoIcon" src="img/logo.webp" alt="Logo The Viet Kitchen" width="128" height="207" class="h-24 md:h-32 w-auto object-contain" fetchpriority="high" decoding="sync" style="filter: drop-shadow(0 4px 20px rgba(192,57,43,0.5));">
+      <img id="heroLogoIcon" src="img/logo.png" alt="Logo The Viet Kitchen" width="128" height="207" class="h-24 md:h-32 w-auto object-contain" fetchpriority="high" decoding="sync" style="filter: drop-shadow(0 4px 20px rgba(192,57,43,0.5));">
     </div>
     <div class="hero-badge-anim mb-6">
       <span class="inline-block badge-rouge">Toulouse · 81 rte de Narbonne</span>
@@ -735,7 +735,7 @@ tailwind.config = {
 <!-- ════════════════════ FOOTER ════════════════════ -->
 <footer class="bg-[#0a0a09] border-t border-white/5 py-10 px-6">
   <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-    <img src="img/logo.webp" alt="The Viet Kitchen" width="40" height="65" class="h-10 w-auto" loading="lazy" decoding="async" style="filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));">
+    <img src="img/logo.png" alt="The Viet Kitchen" width="40" height="65" class="h-10 w-auto" loading="lazy" decoding="async" style="filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));">
     <p class="text-gris text-xs text-center">© 2025 The Viet Kitchen · 81 Rte de Narbonne, Toulouse</p>
     <a href="tel:0981112723" class="text-rouge text-sm font-semibold hover:text-rouge2 transition-colors">09 81 11 27 23</a>
   </div>
