@@ -742,15 +742,16 @@ tailwind.config = {
 </footer>
 
 <script>
+  // Références DOM mises en cache une seule fois — évite un getElementById à chaque événement scroll
+  const _nav    = document.getElementById('navbar');
+  const _heroBg = document.getElementById('heroBg');
+
   // NAV SCROLL — listener passif pour ne pas bloquer le thread principal
   window.addEventListener('scroll', () => {
-    const nav = document.getElementById('navbar');
-    if (window.scrollY > 60) nav.classList.add('nav-scrolled');
-    else nav.classList.remove('nav-scrolled');
-    // Hero parallax : uniquement si l'élément est visible (évite le travail inutile)
-    const heroBg = document.getElementById('heroBg');
-    if (heroBg) heroBg.style.transform = `translateY(${window.scrollY * 0.4}px)`;
-  }, { passive: true }); // passive:true évite le blocage du scroll natif
+    if (window.scrollY > 60) _nav.classList.add('nav-scrolled');
+    else _nav.classList.remove('nav-scrolled');
+    if (_heroBg) _heroBg.style.transform = `translateY(${window.scrollY * 0.4}px)`;
+  }, { passive: true });
 
   // MENU MOBILE
   function toggleMenu() {
