@@ -180,6 +180,8 @@ tailwind.config = {
      Ces propriétés sont coûteuses sur GPU mobile (repaints,
      compositing). Désactivées sous 768px, aucun impact desktop.
   ──────────────────────────────────────────────────────────── */
+   .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   @media (max-width: 768px) {
     /* background-attachment:fixed force un repaint complet à chaque px scrollé sur mobile */
     #heroBg {
@@ -238,14 +240,14 @@ tailwind.config = {
 </nav>
 
 <!-- ════════════════════ HERO ════════════════════ -->
-<section id="hero" class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden pt-20">
+<section id="hero" class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden pt-28 sm:pt-20">
   <div id="heroBg" class="absolute inset-0 bg-cover bg-center" style="background-image: url('img/hero.webp'); background-attachment:fixed;"></div>
   <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(10,10,8,0.75) 0%, rgba(10,10,8,0.45) 40%, rgba(10,10,8,0.85) 100%);"></div>
   <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.4) 100%);"></div>
   <div class="absolute top-0 left-0 right-0 h-0.5 bg-rouge z-10"></div>
   <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
     <div class="hero-logo-anim mb-6 flex justify-center">
-      <img id="heroLogoIcon" src="img/logo.png" alt="Logo The Viet Kitchen" width="128" height="207" class="h-24 md:h-32 w-auto object-contain" fetchpriority="high" decoding="sync" style="filter: drop-shadow(0 4px 20px rgba(192,57,43,0.5));">
+      <img id="heroLogoIcon" src="img/logo.png" alt="Logo The Viet Kitchen" width="128" height="207" class="h-20 md:h-32 w-auto object-contain" fetchpriority="high" decoding="sync" style="filter: drop-shadow(0 4px 20px rgba(192,57,43,0.5));">
     </div>
     <div class="hero-badge-anim mb-6">
       <span class="inline-block badge-rouge">Toulouse · 81 rte de Narbonne</span>
@@ -267,7 +269,7 @@ tailwind.config = {
       </a>
     </div>
   </div>
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 bounce opacity-60">
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 bounce opacity-60">
     <span class="text-xs tracking-widest text-gris uppercase">Scroll</span>
     <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M8 1v18M1 13l7 7 7-7" stroke="#8a8a85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -305,7 +307,7 @@ tailwind.config = {
       <h2 class="text-4xl md:text-5xl text-creme mb-4 font-extrabold" style="font-family:'Plus Jakarta Sans',sans-serif; letter-spacing:-0.02em;">Notre carte de cuisine<br>vietnamienne à Toulouse</h2>
       <div class="gold-line max-w-xs mx-auto mt-6"></div>
     </div>
-    <div class="flex flex-wrap justify-center gap-2 mb-12 reveal" style="transition-delay:0.1s">
+   <div class="flex overflow-x-auto justify-start sm:justify-center gap-2 mb-12 reveal pb-1 no-scrollbar" style="transition-delay:0.1s">
       <button onclick="switchTab('entrees')" id="tab-entrees" class="tab-btn active px-5 py-3 text-sm font-semibold text-gris border-b-2 border-transparent transition-all">Entrées</button>
       <button onclick="switchTab('bobun')" id="tab-bobun" class="tab-btn px-5 py-3 text-sm font-semibold text-gris border-b-2 border-transparent transition-all">Bo Bun <span class="ml-1 badge-rouge">Spécialité</span></button>
       <button onclick="switchTab('plats')" id="tab-plats" class="tab-btn px-5 py-3 text-sm font-semibold text-gris border-b-2 border-transparent transition-all">Plats & Nouilles</button>
@@ -526,7 +528,7 @@ tailwind.config = {
   <style>
     #reviews-track { display: flex; gap: 20px; width: max-content; transition: transform 0.3s ease; align-items: flex-start; }
     #reviews-track:hover { animation-play-state: paused; }
-    .review-card { width: 320px; min-height: 220px; flex-shrink: 0; background: #232320; border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 20px 22px; display: flex; flex-direction: column; justify-content: space-between; transition: border-color 0.3s ease; cursor: default; box-sizing: border-box; }
+    .review-card { width: min(320px, calc(100vw - 48px)); min-height: 220px; flex-shrink: 0; background: #232320; border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 20px 22px; display: flex; flex-direction: column; justify-content: space-between; transition: border-color 0.3s ease; cursor: default; box-sizing: border-box; }
     .review-card:hover { border-color: rgba(192,57,43,0.35); }
     .review-card blockquote { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; flex-shrink: 1; transition: none; }
     .review-card.expanded blockquote { -webkit-line-clamp: unset; display: block; overflow: visible; }
@@ -628,7 +630,7 @@ tailwind.config = {
     const track = document.getElementById('reviews-track');
     const vp    = document.getElementById('reviews-viewport');
     if (!track || !vp) return;
-    const CARD_W = 320 + 20;
+    const CARD_W = Math.min(320, window.innerWidth - 48) + 20;
     const TOTAL  = 18;
     const HALF_W = CARD_W * TOTAL;
     let offset   = 0;
@@ -773,18 +775,12 @@ tailwind.config = {
   const _heroBg = document.getElementById('heroBg');
 
   // NAV SCROLL — listener passif pour ne pas bloquer le thread principal
-  window.addEventListener('scroll', () => {
+ window.addEventListener('scroll', () => {
     if (window.scrollY > 60) _nav.classList.add('nav-scrolled');
     else _nav.classList.remove('nav-scrolled');
-    window.addEventListener('scroll', () => {
-  if (window.scrollY > 60) _nav.classList.add('nav-scrolled');
-  else _nav.classList.remove('nav-scrolled');
-
-  // Parallax uniquement sur desktop
-  if (_heroBg && window.innerWidth > 768) {
-    _heroBg.style.transform = `translateY(${window.scrollY * 0.4}px)`;
-  }
-}, { passive: true });
+    if (_heroBg && window.innerWidth > 768) {
+      _heroBg.style.transform = `translateY(${window.scrollY * 0.4}px)`;
+    }
   }, { passive: true });
 
   // MENU MOBILE
